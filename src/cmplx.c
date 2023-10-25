@@ -1,10 +1,14 @@
 #include<stdio.h>
-#include "../inc/cmplx.h"
-#include <Math.h>
+#include "cmplx.h"
+#include <math.h>
 
 #define M_PI 3.14159265358979323846
 
 void cmplx_div(cmplx_t a, cmplx_t b, cmplx_t c){
+    if(b[0]==0 && b[1] == 0){
+        printf("Can't divide by zero");
+        return;
+    }
     c[0]=(a[0]*b[0]+a[1]*b[1])/(b[0]*b[0]+b[1]*b[1]);
     c[1]=(a[1]*b[0]-a[0]*b[1])/(b[0]*b[0]+b[1]*b[1]);
 }

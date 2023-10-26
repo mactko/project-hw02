@@ -1,6 +1,6 @@
-SRC=$(wildcard src/*c) #nalaze se svi source fileovi -> efektivno library fileovi
-OBJ=$(patsubst %c, %o, $(SRC)) #obj fileovi library fileova
-EXESRC=$(wildcard exesrc/*c) #nalaze se svi .c fileovi s main funkcijom (runable) 
+SRC=$(wildcard src/*c)
+OBJ=$(patsubst %c, %o, $(SRC)) 
+EXESRC=$(wildcard exesrc/*c)  
 EXEOBJ=$(patsubst %c, %o, $(EXESRC))
 INC=inc/ 
 CFLAGS=-I $(INC) 

@@ -16,7 +16,7 @@ $(EXE): $(EXEOBJ) $(OBJ)
 	mv $@ exe/
 
 $(OBJ): $(SRC)
-	gcc -c $< $(CLFAGS) -o $@
+	gcc -c $< $(CFLAGS) -o $@
 
 $(EXEOBJ): $(EXESRC)
 	gcc -c $< $(CFLAGS) -o $@

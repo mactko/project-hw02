@@ -1,28 +1,31 @@
-SRC=$(wildcard src/*c)
-OBJ=$(patsubst %c, %o, $(SRC))
-EXESRC=$(wildcard exesrc/*c)
+SRC=$(wildcard src/*c) #nalaze se svi source fileovi -> efektivno library fileovi
+OBJ=$(patsubst %c, %o, $(SRC)) #obj fileovi library fileova
+EXESRC=$(wildcard exesrc/*c) #nalaze se svi .c fileovi s main funkcijom (runable) 
 EXEOBJ=$(patsubst %c, %o, $(EXESRC))
-INC=inc/
+INC=inc/ 
 CFLAGS=-I $(INC) 
 
-EXE=$(EXESRC:%.c=%)
+EXE=$(patsubst %.c, % , $(EXESRC))
 
 .SECONDARY:
 
 all: $(EXE)
 
-$(EXE): %: %.o
+$(EXE): $(EXEOBJ) $(OBJ)
 	gcc $< $(CFLAGS) -o $@ -lm
 	mv $@ exe/
 
-%.o: %.c
+$(OBJ): $(SRC)
+	gcc -c $< $(CLFAGS) -o $@
+
+$(EXEOBJ): $(EXESRC)
 	gcc -c $< $(CFLAGS) -o $@
 
 run: all
-	for binary in exe/*; do \
-	echo "Running $$binary..."; \
-        ./$$binary; \
+	for exeFile in exe/*; do \
+	echo "Running $$exeFile..."; \
+        ./$$exeFile; \
     done
 
 clean:
-	rm -rf $(OBJ) $(EXEOBJ) $(OBJ) exe/*
+	rm -rf $(OBJ) $(EXEOBJ) $(OBJ) $(EXE) exe/*
